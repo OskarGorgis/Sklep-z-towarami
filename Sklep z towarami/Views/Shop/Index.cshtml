@@ -1,0 +1,62 @@
+﻿@model (List<Sklep_z_towarami.Models.Article> Articles, List<Sklep_z_towarami.Models.Category> Categories)
+
+<h1>Shop - All categories</h1>
+
+<div class="row">
+    @foreach (var item in Model.Articles)
+    {
+        <div class="col-3">
+            <div class="card my-3 shadow" style="width: 18rem;">
+                <div class="card-img-wrapper">
+                    <img src="@(item.ImagePath != null ? item.ImagePath : "images/default.jpg")" class="card-img p-3" alt="">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.Price)</p>
+
+                    @if (item.CategoryId != null)
+                    {
+                        var categoryName = Model.Categories.FirstOrDefault(c => c.Id == item.CategoryId)?.Name;
+                        <p class="card-text">@categoryName</p>
+                    }
+                    <form method="post" asp-action="AddToCart">
+                        <input type="hidden" name="ItemId" value="@item.Id" />
+                        <button type="submit">Add to cart</button>
+                    </form>                
+                </div>
+            </div>
+        </div>
+    }
+
+    @section Menu {
+        <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
+            <li class="nav-item">
+                <a class="nav-link active" asp-action="Cart" asp-route-id="">
+                    Cart
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" asp-action="" asp-route-id="">All categories</a>
+            </li>
+            @foreach (var item in Model.Categories)
+			{
+                <li class="nav-item">
+                    <a class="nav-link active" asp-action="Category" asp-route-id="@item.Id">@item.Name</a>
+                </li>
+			}
+        </ul>
+    }
+
+    @section SwitchRoles {
+        <p>@ViewBag.Role</p>
+        @if (ViewBag.Role != null) {
+            <h4>Now you are @(ViewBag.Role). To change click below. </h4>
+        }
+        else
+        {
+            <h4>Now you are Guest. To change click below. </h4>
+        }
+        <p><a asp-action="SetBuyer">Set buyer</a></p>
+        <p><a asp-action="SetSeller">Set seller</a></p>
+    }
+</div>

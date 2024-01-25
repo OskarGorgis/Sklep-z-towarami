@@ -1,0 +1,61 @@
+﻿@model (List<(Sklep_z_towarami.Models.Article, int)> CartList, List<Sklep_z_towarami.Models.Category> Categories)
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<h1>Cart</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Amount
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Options
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    @{
+        var totalCost = 0f;
+    }
+@foreach (var (item, amount) in Model.CartList) {
+    totalCost = totalCost + (item.Price * (float)amount);
+        <tr>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @Model.Categories.FirstOrDefault(c => c.Id == item.CategoryId).Name
+            </td>
+            <td>
+                @amount
+            </td>
+            <td>
+                @item.Price
+            </td>
+            <td>
+                <a asp-action="More" asp-route-id="@item.Name">More</a> |
+                <a asp-action="Less" asp-route-id="@item.Name">Less</a> |
+                <a asp-action="Delete" asp-route-id="@item.Name">Delete</a>
+            </td>
+        </tr>
+}
+    <tr>
+        Total cost is: @totalCost
+    </tr>
+    </tbody>
+</table>
+@if (Model.CartList.Count() == 0) {
+        <h3> Cart is empty! </h3>
+    }
