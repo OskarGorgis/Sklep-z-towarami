@@ -8,7 +8,7 @@ namespace Sklep_z_towarami.Data
 
         public static void SeedData(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            string[] rolesArray = { "Admin", "Customer" };
+            string[] rolesArray = { "Admin", "Customer", "SysOp" };
 
             SeedRoles(roleManager, rolesArray);
             SeedUsers(userManager);
@@ -18,6 +18,7 @@ namespace Sklep_z_towarami.Data
         {
             SeedUser(userManager, "admin@localhost", "aadmin", "Admin");
             SeedUser(userManager, "customer@localhost", "customer", "Customer");
+            SeedUser(userManager, "sysop@localhost", "sysop", "SysOp");
         }
 
         public static void SeedUser(UserManager<IdentityUser> userManager, string name, string password, string role = null)
