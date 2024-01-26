@@ -11,6 +11,7 @@ using Sklep_z_towarami.Models;
 
 namespace Sklep_z_towarami.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CategoriesController : Controller
     {
         private readonly MyDbContext _context;
@@ -141,7 +142,6 @@ namespace Sklep_z_towarami.Controllers
         }
 
         // POST: Categories/Delete/5
-        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

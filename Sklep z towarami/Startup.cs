@@ -31,6 +31,7 @@ namespace Sklep_z_towarami
                 options.Password.RequireUppercase = false;
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 1;
+                options.Password.RequireNonAlphanumeric = false;
                 })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<MyDbContext>();

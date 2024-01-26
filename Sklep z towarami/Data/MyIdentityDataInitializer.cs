@@ -16,7 +16,7 @@ namespace Sklep_z_towarami.Data
 
         public static void SeedUsers(UserManager<IdentityUser> userManager)
         {
-            SeedUser(userManager, "admin@localhost", "admin", "Admin");
+            SeedUser(userManager, "admin@localhost", "aadmin", "Admin");
             SeedUser(userManager, "customer@localhost", "customer", "Customer");
         }
 
@@ -45,7 +45,7 @@ namespace Sklep_z_towarami.Data
                 {
                     IdentityRole role = new IdentityRole
                     {
-                        Name = "Admin",
+                        Name = roleName,
                     };
                     IdentityResult roleResult = roleManager.CreateAsync(role).Result;
                 }

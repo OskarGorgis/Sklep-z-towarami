@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -91,6 +92,7 @@ namespace Sklep_z_towarami.Controllers
             return RedirectToAction(nameof(Cart));
         }
 
+        [Authorize(Roles = "Customer, ")]
         public async Task<IActionResult> Cart()
         {
             var articles = await _context.Articles.ToListAsync();
@@ -112,6 +114,7 @@ namespace Sklep_z_towarami.Controllers
             return View((cartList, categories));
         }
 
+        [Authorize(Roles = "Customer, ")]
         [HttpPost]
         // POST: Shop/AddToCart
         public IActionResult AddToCart(int itemId)

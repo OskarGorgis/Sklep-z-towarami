@@ -17,6 +17,7 @@ using Sklep_z_towarami.Models;
 
 namespace Sklep_z_towarami.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ArticlesController : Controller
     {
         private readonly MyDbContext _context;
