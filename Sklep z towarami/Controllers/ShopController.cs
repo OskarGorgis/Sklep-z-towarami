@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,13 +13,16 @@ using Sklep_z_towarami.Models;
 
 namespace Sklep_z_towarami.Controllers
 {
+    [AllowAnonymous]
     public class ShopController : Controller
     {
         private readonly MyDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ShopController(MyDbContext context)
+        public ShopController(MyDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult SetBuyer()
@@ -92,9 +96,10 @@ namespace Sklep_z_towarami.Controllers
             return RedirectToAction(nameof(Cart));
         }
 
-        [Authorize(Roles = "Customer, ")]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> Cart()
         {
+            //if (_userManager.)
             var articles = await _context.Articles.ToListAsync();
             var categories = await _context.Categories.ToListAsync();
 
@@ -114,7 +119,7 @@ namespace Sklep_z_towarami.Controllers
             return View((cartList, categories));
         }
 
-        [Authorize(Roles = "Customer, ")]
+        [Authorize(Roles = "Customer")]
         [HttpPost]
         // POST: Shop/AddToCart
         public IActionResult AddToCart(int itemId)

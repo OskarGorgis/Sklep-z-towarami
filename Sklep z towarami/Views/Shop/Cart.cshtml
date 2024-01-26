@@ -54,6 +54,9 @@
     <tr>
         Total cost is: @totalCost
     </tr>
+    <tr>
+        <a asp-controller="Checkout" asp-action="Index">Przejdź do kasy</a>
+    </tr>
     </tbody>
 </table>
 @if (Model.CartList.Count() == 0) {

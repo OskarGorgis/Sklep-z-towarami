@@ -1,0 +1,24 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Order
+
+<h2>Podsumowanie Zamówienia</h2>
+
+<!-- Sekcja danych osobowych -->
+<h3>Dane Osobowe</h3>
+<p><strong>Imię:</strong> @Model.Name</p>
+<p><strong>Nazwisko:</strong> @Model.LastName</p>
+
+<!-- Sekcja adresu dostawy -->
+<h3>Adres Dostawy</h3>
+<p><strong>Ulica:</strong> @Model.Street</p>
+<p><strong>Miasto:</strong> @Model.City</p>
+<p><strong>Kod Pocztowy:</strong> @Model.PostalCode</p>
+
+<!-- Sekcja sposobu płatności -->
+<h3>Sposób Płatności</h3>
+<p><strong>Wybrany Sposób Płatności:</strong> @Model.PaymentMethod</p>
+
+<!-- Link powrotny do strony głównej (lub gdziekolwiek chcesz przekierować użytkownika) -->
+<a asp-controller="Shop" asp-action="Cart">Wróć do koszyka</a>
