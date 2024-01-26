@@ -25,7 +25,13 @@ namespace Sklep_z_towarami
             services.AddControllersWithViews();
             services.AddDbContextPool<MyDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("MyDB")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+            services.AddDefaultIdentity<IdentityUser>(options => {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 1;
+                })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<MyDbContext>();
         }
